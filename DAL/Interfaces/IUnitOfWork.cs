@@ -8,8 +8,6 @@ namespace DAL.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        ICategoryDAL CategoryDAL { get; }
-
         IProductDAL ProductDAL { get; }
         bool Complete();
     }

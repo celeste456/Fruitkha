@@ -11,7 +11,7 @@ public partial class DiscountCode
 
     public decimal DiscountPercentage { get; set; }
 
-    public string? Photo { get; set; }
+    public byte[]? Photo { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

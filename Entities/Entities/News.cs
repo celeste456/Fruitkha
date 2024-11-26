@@ -11,7 +11,7 @@ public partial class News
 
     public string Content { get; set; } = null!;
 
-    public string? Photo { get; set; }
+    public byte[]? Photo { get; set; }
 
     public DateTime PublishDate { get; set; }
 

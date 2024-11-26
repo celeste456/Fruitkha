@@ -1,5 +1,6 @@
 ﻿using DAL.Interfaces;
 using Entities.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,18 +9,19 @@ using System.Threading.Tasks;
 
 namespace DAL.Implementations
 {
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private FruitkhaContext _Context;
-        public ICategoryDAL CategoryDAL { get; set; }
+
+        public IProductDAL ProductDAL { get; set; }
 
         public UnitOfWork(FruitkhaContext Context,
-                        ICategoryDAL categoryDAL
+                         IProductDAL productDAL
 
             )
         {
             this._Context = Context;
-            this.CategoryDAL = categoryDAL;
+            this.ProductDAL = productDAL;
         }
 
         public bool Complete()
@@ -29,11 +31,14 @@ namespace DAL.Implementations
                 _Context.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (DbUpdateException ex)
             {
+                Console.WriteLine(ex.InnerException?.Message);
                 return false;
             }
         }
+
+
 
         public void Dispose()
         {

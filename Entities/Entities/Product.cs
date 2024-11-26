@@ -13,7 +13,7 @@ public partial class Product
 
     public string Description { get; set; } = null!;
 
-    public string? Photo { get; set; }
+    public byte[]? Photo { get; set; }
 
     public int CategoryId { get; set; }
 

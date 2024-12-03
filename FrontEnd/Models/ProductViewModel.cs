@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel;
 
 namespace FrontEnd.Models
 {
@@ -13,8 +14,8 @@ namespace FrontEnd.Models
 
 		public string? Photo { get; set; }
 
-		public int CategoryId { get; set; }
+        [DisplayName("Category")]
+        public int CategoryId { get; set; }
 
-        public IEnumerable<SelectListItem> Categories { get; set; }
     }
 }

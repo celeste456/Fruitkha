@@ -2,13 +2,15 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<div class="breadcrumb-section breadcrumb-bg" style="height: 112px !important; padding: 0 !important;">
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="container" style="margin-bottom: 30px; margin-top: 30px;">
+    <h2>Products</h2>
+    <p><a asp-action="Create">Create New</a></p>
 <table class="table">
     <thead>
         <tr>
@@ -51,7 +53,7 @@
                 <td>
                     @if (!string.IsNullOrEmpty(item.Photo))
                     {
-                        <img src="@item.Photo" alt="Product Image" style="width: 100px; height: auto;" />
+                        <img src="@item.Photo" alt="Service Image" style="width: 100px; height: auto;" />
                     }
                     else
                     {
@@ -63,11 +65,12 @@
                 @Html.DisplayFor(modelItem => item.CategoryId)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id  }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
 }
     </tbody>
 </table>
+</div>

@@ -12,13 +12,13 @@ namespace FrontEnd.Helpers.Implementations
     {
         public HttpClient Client { get; set; }
 
-        public ServiceRepository(HttpClient _client, IConfiguration configuration)
+        public IFormDataBuilder _formDataBuilder;
+
+        public ServiceRepository(HttpClient _client, IFormDataBuilder formDataBuilder, IConfiguration configuration)
         {
             Client = _client;
-            string baseUrl = configuration.GetValue<string>("BackEnd:Url") ?? "";
-            //string apiKey = configuration.GetValue<string>("BackEnd:ApiKey") ?? "";
-            Client.BaseAddress = new Uri(baseUrl);
-            //Client.DefaultRequestHeaders.Add("ApiKey", apiKey);
+            _formDataBuilder = formDataBuilder;
+            Client.BaseAddress = new Uri(configuration.GetValue<string>("BackEnd:Url") ?? "");
         }
         public HttpResponseMessage GetResponse(string url)
         {
@@ -37,5 +37,16 @@ namespace FrontEnd.Helpers.Implementations
             return Client.DeleteAsync(url).Result;
         }
 
+        public HttpResponseMessage PostResponse<T>(string url, T model, IFormFile image)
+        {
+            var formData = _formDataBuilder.BuildFormData(model, image);
+            return Client.PostAsync(url, formData).Result;
+        }
+
+        public HttpResponseMessage PutResponse<T>(string url, T model, IFormFile image)
+        {
+            var formData = _formDataBuilder.BuildFormData(model, image);
+            return Client.PutAsync(url, formData).Result;
+        }
     }
 }

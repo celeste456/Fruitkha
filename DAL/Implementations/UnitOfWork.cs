@@ -15,13 +15,16 @@ namespace DAL.Implementations
 
         public IProductDAL ProductDAL { get; set; }
 
+        public ICategoryDAL CategoryDAL { get; set; }
+
         public UnitOfWork(FruitkhaContext Context,
-                         IProductDAL productDAL
+                         IProductDAL productDAL, ICategoryDAL categoryDAL
 
             )
         {
             this._Context = Context;
             this.ProductDAL = productDAL;
+            this.CategoryDAL = categoryDAL;
         }
 
         public bool Complete()
@@ -37,8 +40,6 @@ namespace DAL.Implementations
                 return false;
             }
         }
-
-
 
         public void Dispose()
         {

@@ -17,9 +17,14 @@ builder.Services.AddSwaggerGen();
 #region DI
 builder.Services.AddDbContext<FruitkhaContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IImageHandler, ImageHandler>();
+
 builder.Services.AddScoped<IProductDAL, ProductDALImpl>();
 builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IImageHandler, ImageHandler>();
+
+builder.Services.AddScoped<ICategoryDAL, CategoryDALImpl>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+
 
 #endregion
 var app = builder.Build();

@@ -42,6 +42,12 @@ namespace BackEnd.Services.Implementations
             }
             return categoryList;
         }
+
+        public CategoryDTO GetById(int id)
+        {
+            var category = _unit.CategoryDAL.Get(id);
+            return Convert(category);
+        }
     }
 
 }

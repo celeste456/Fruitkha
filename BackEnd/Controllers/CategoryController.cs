@@ -22,5 +22,12 @@ namespace BackEnd.Controllers
             var result = _categoryService.GetCategories();
             return Ok(result);
         }
+
+        [HttpGet("{id}")]
+        public ActionResult GetById(int id)
+        {
+            var result = _categoryService.GetById(id);
+            return Ok(result);
+        }
     }
 }

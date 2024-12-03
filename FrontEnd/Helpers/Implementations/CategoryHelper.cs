@@ -49,5 +49,19 @@ namespace FrontEnd.Helpers.Implementations
             }
             return list;
         }
+
+        public CategoryViewModel GetCategoryById(int id)
+        {
+            Category category = new Category();
+            HttpResponseMessage responseMessage = _repository.GetResponse("api/Category/" + id.ToString());
+
+            if (responseMessage != null)
+            {
+                var content = responseMessage.Content.ReadAsStringAsync().Result;
+                category = JsonConvert.DeserializeObject<Category>(content);
+            }
+
+            return Convertir(category);
+        }
     }
 }

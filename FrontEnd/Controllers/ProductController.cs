@@ -25,6 +25,9 @@ namespace FrontEnd.Controllers
         public IActionResult Details(int id)
         {
             ProductViewModel product = _productHelper.GetProductById(id);
+            var category = _categoryHelper.GetCategoryById(product.CategoryId);
+            product.CategoryName = category.Name;
+
             if (product == null)
             {
                 return NotFound();
@@ -65,6 +68,13 @@ namespace FrontEnd.Controllers
         public IActionResult Edit(int id)
         {
             var product = _productHelper.GetProductById(id);
+            var categories = _categoryHelper.GetAllCategories();
+            ViewData["CategoryList"] = categories.Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Name
+            });
+
             if (product == null)
             {
                 return NotFound();
@@ -94,6 +104,8 @@ namespace FrontEnd.Controllers
         public IActionResult Delete(int id)
         {
             var product = _productHelper.GetProductById(id);
+            var category = _categoryHelper.GetCategoryById(product.CategoryId);
+            product.CategoryName = category.Name; 
             return View(product);
         }
 

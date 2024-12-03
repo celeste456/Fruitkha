@@ -19,6 +19,31 @@ namespace FrontEnd.Controllers
         public IActionResult Index()
         {
             List<ProductViewModel> products = _productHelper.GetAllProducts();
+
+            foreach (var product in products)
+            {
+                var category = _categoryHelper.GetCategoryById(product.CategoryId);
+                product.CategoryName = category.Name;
+            }
+
+            return View(products);
+        }
+
+        public IActionResult Shop(int? categoryId)
+        {
+            List<CategoryViewModel> categories = _categoryHelper.GetAllCategories();
+        
+            List<ProductViewModel> products;
+            if (categoryId.HasValue)
+            {
+                products = _productHelper.GetProductsByCategory(categoryId.Value);
+            }
+            else
+            {
+                products = _productHelper.GetAllProducts();
+            }
+
+            ViewBag.Categories = categories;
             return View(products);
         }
 

@@ -15,5 +15,6 @@ public partial class News
 
     public DateTime PublishDate { get; set; }
 
+
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 }

@@ -4,7 +4,6 @@ namespace BackEnd.Services.Implementations
 {
     public class ApiKeyManager : IApiKeyManager
     {
-
         RequestDelegate _requestDelegate;
         const string APIKEYNAME = "ApiKey";
 
@@ -18,7 +17,7 @@ namespace BackEnd.Services.Implementations
             if (!context.Request.Headers.TryGetValue(APIKEYNAME, out var extractedApiKey))
             {
                 context.Response.StatusCode = 401;
-                await context.Response.WriteAsync("No contiene API Key");
+                await context.Response.WriteAsync("No API Key");
                 return;
             }
 
@@ -27,7 +26,7 @@ namespace BackEnd.Services.Implementations
 
             if (!key.Equals(extractedApiKey)) {
                 context.Response.StatusCode = 401;
-                await context.Response.WriteAsync(" API Key incorrecto");
+                await context.Response.WriteAsync("Incorrect API Key");
                 return;
 
             }

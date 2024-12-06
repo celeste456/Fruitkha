@@ -17,7 +17,6 @@ namespace BackEnd.Services.Implementations
             this.configuration = configuration;
         }
 
-
         public TokenModel CreateToken(IdentityUser user, List<string> roles)
         {
 

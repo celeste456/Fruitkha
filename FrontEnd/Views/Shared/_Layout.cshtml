@@ -28,6 +28,25 @@
 	<link rel="stylesheet" href="~/assets/css/main.css">
 	<!-- responsive -->
 	<link rel="stylesheet" href="~/assets/css/responsive.css">
+	<style>
+		.logout-button {
+			background: none;
+			border: none;
+			padding: 0;
+			cursor: pointer;
+			color: white;
+			outline: none;
+		}
+
+			.logout-button:focus, .logout-button:active {
+				outline: none;
+				box-shadow: none;
+			}
+
+			.logout-button:hover {
+				color: #F28123;
+			}
+	</style>
 </head>
 <body>
 	<div class="loader">
@@ -50,26 +69,7 @@
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li class="current-list-item">
-									<a href="#">Home</a>
-									<ul class="sub-menu">
-										<li><a href="index.html">Static Home</a></li>
-										<li><a href="index_2.html">Slider Home</a></li>
-									</ul>
-								</li>
 								<li><a href="about.html">About</a></li>
-								<li>
-									<a href="#">Pages</a>
-									<ul class="sub-menu">
-										<li><a href="404.html">404 page</a></li>
-										<li><a href="about.html">About</a></li>
-										<li><a href="cart.html">Cart</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
-										<li><a href="contact.html">Contact</a></li>
-										<li><a href="news.html">News</a></li>
-										<li><a href="shop.html">Shop</a></li>
-									</ul>
-								</li>
 								<li>
 									<a href="news.html">News</a>
 									<ul class="sub-menu">
@@ -86,15 +86,31 @@
 								</li>
 								<li>
 									<div class="header-icons">
+										@if (User.Identity.IsAuthenticated)
+										{
+											<form asp-action="Logout" asp-controller="Auth" method="post" style="display:inline;">
+												<button type="submit" class="user-icon logout-button">
+													<i class="fas fa-sign-out-alt"></i>
+												</button>
+											</form>
+										}
+										else
+										{
+											<a class="user-icon" href="@Url.Action("Register", "Auth")">
+												Sign Up
+											</a>
+											<a class="user-icon" href="@Url.Action("Login", "Auth")">
+												Sign In
+											</a>
+										}
 										<a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
-										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 									</div>
 								</li>
 							</ul>
 						</nav>
 						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 						<div class="mobile-menu"></div>
-						<!-- menu end -->
+						<!-- menu end A1b@cD3e -->
 					</div>
 				</div>
 			</div>

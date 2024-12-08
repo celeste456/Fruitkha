@@ -36,7 +36,12 @@ namespace DAL.Implementations
             return _Context.Set<TEntity>().Find(id);
         }
 
-        public IEnumerable<TEntity> GetAll()
+		public TEntity Get(String id)
+		{
+			return _Context.Set<TEntity>().Find(id);
+		}
+
+		public IEnumerable<TEntity> GetAll()
         {
             return _Context.Set<TEntity>().ToList();
         }

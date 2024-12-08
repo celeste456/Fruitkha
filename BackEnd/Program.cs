@@ -1,4 +1,5 @@
 
+using BackEnd.DTO;
 using BackEnd.Services.Implementations;
 using BackEnd.Services.Interfaces;
 using DAL.Implementations;
@@ -82,6 +83,16 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryDAL, CategoryDALImpl>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
+builder.Services.AddScoped<IDiscountCodeDAL, DiscountCodeDALImpl>();
+builder.Services.AddScoped<IDiscountCodeService, DiscountCodeService>();
+
+builder.Services.AddScoped<IShoppingCartDAL, ShoppingCartDALImpl>();
+builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
+
+builder.Services.AddScoped<IShoppingCartItemDAL, ShoppingCartItemDALImpl>();
+builder.Services.AddScoped<IShoppingCartItemService, ShoppingCartItemService>();
+
+builder.Services.AddScoped<IOrderDAL, OrderDALImpl>();
 
 #endregion
 var app = builder.Build();

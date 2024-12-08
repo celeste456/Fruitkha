@@ -19,31 +19,31 @@ namespace BackEnd.Services.Implementations
             _imageHandler = imageHandler;
         }
 
-        ProductDTO Convert(Product product)
-        {
-            return new ProductDTO
+            ProductDTO Convert(Product product)
             {
-                Id = product.Id,
-                Name = product.Name,
-                Description = product.Description,
-                Price = product.Price,
-                CategoryId = product.CategoryId,
-                Photo = product.Photo,
-            };
-        }
+                return new ProductDTO
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Description = product.Description,
+                    Price = product.Price,
+                    CategoryId = product.CategoryId,
+                    Photo = product.Photo,
+                };
+            }
 
-        Product Convert(ProductDTO product)
-        {
-            return new Product
+            Product Convert(ProductDTO product)
             {
-                Id = product.Id,
-                Name = product.Name,
-                Description = product.Description,
-                Price = product.Price,
-                CategoryId = product.CategoryId,
-                Photo = product.Photo,
-            };
-        }
+                return new Product
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Description = product.Description,
+                    Price = product.Price,
+                    CategoryId = product.CategoryId,
+                    Photo = product.Photo,
+                };
+            }
         #endregion
         public ProductDTO Add(ProductDTO productDto, IFormFile? image)
         {

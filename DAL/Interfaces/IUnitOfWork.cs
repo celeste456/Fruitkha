@@ -10,6 +10,10 @@ namespace DAL.Interfaces
     {
         IProductDAL ProductDAL { get; }
         ICategoryDAL CategoryDAL { get; }
-        bool Complete();
+        IDiscountCodeDAL DiscountCodeDAL { get; }
+		IShoppingCartDAL ShoppingCartDAL { get; }
+		IShoppingCartItemDAL ShoppingCartItemDAL { get; }
+		IOrderDAL OrderDAL { get; }
+		bool Complete();
     }
 }

@@ -28,11 +28,16 @@ public partial class FruitkhaContext : DbContext
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
+	public virtual DbSet<ShoppingCart> ShoppingCartItem { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        base.OnConfiguring(optionsBuilder);
-    }
+		if (!optionsBuilder.IsConfigured)
+		{
+			optionsBuilder.UseSqlServer("Server=.;Database=Fruitkha;Integrated Security=True;Trusted_Connection=True; TrustServerCertificate=True;");
+		}
+		base.OnConfiguring(optionsBuilder);
+	}
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Category>(entity =>
@@ -114,23 +119,37 @@ public partial class FruitkhaContext : DbContext
                 .HasConstraintName("FK__Products__Catego__3A81B327");
         });
 
-        modelBuilder.Entity<ShoppingCart>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Shopping__3214EC07CA19A834");
+		modelBuilder.Entity<ShoppingCart>(entity =>
+		{
+			entity.HasKey(e => e.Id).HasName("PK_ShoppingCart");
 
-            entity.ToTable("ShoppingCart");
+			entity.ToTable("ShoppingCart");
 
-            entity.Property(e => e.Quantity).HasColumnType("decimal(10, 2)");
-            entity.Property(e => e.TotalPrice).HasColumnType("decimal(10, 2)");
-            entity.Property(e => e.UserId).HasMaxLength(450);
+			entity.Property(e => e.UserId).HasMaxLength(450);
 
-            entity.HasOne(d => d.Product).WithMany(p => p.ShoppingCarts)
-                .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ShoppingC__Produ__48CFD27E");
-        });
+			entity.HasMany(e => e.Items)
+				.WithOne(e => e.ShoppingCart)
+				.HasForeignKey(e => e.ShoppingCartId)
+				.OnDelete(DeleteBehavior.ClientSetNull)
+				.HasConstraintName("FK_ShoppingCart_ShoppingCartItems");
+		});
 
-        OnModelCreatingPartial(modelBuilder);
+		modelBuilder.Entity<ShoppingCartItem>(entity =>
+		{
+			entity.HasKey(e => e.Id).HasName("PK_ShoppingCartItem");
+
+			entity.ToTable("ShoppingCartItem");
+
+			entity.Property(e => e.Quantity).HasColumnType("decimal(10, 2)");
+
+			entity.HasOne(e => e.Product)
+				.WithMany()
+				.HasForeignKey(e => e.ProductId)
+				.OnDelete(DeleteBehavior.ClientSetNull)
+				.HasConstraintName("FK_ShoppingCartItem_Product");
+		});
+
+		OnModelCreatingPartial(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

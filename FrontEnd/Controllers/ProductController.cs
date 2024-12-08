@@ -47,7 +47,24 @@ namespace FrontEnd.Controllers
             return View(products);
         }
 
-        public IActionResult Details(int id)
+		public IActionResult ViewProduct(int id)
+		{
+			// Obtén los detalles del producto usando el helper
+			var product = _productHelper.GetProductById(id);
+			if (product == null)
+			{
+				return NotFound();
+			}
+
+			// Obtén la categoría del producto
+			var category = _categoryHelper.GetCategoryById(product.CategoryId);
+			product.CategoryName = category?.Name;
+
+			return View(product);
+		}
+
+
+		public IActionResult Details(int id)
         {
             ProductViewModel product = _productHelper.GetProductById(id);
             var category = _categoryHelper.GetCategoryById(product.CategoryId);

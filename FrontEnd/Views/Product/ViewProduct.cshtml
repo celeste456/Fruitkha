@@ -1,0 +1,66 @@
+﻿@model FrontEnd.Models.ProductViewModel
+
+@{
+    ViewData["Title"] = "ViewProduct";
+}
+
+<div class="breadcrumb-section breadcrumb-bg" style="height: 112px !important; padding: 0 !important;"></div>
+<div class="single-product mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="single-product-img">
+                    <img src="@Model.Photo" alt="@Model.Name" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="single-product-content">
+                    <h3>@Model.Name</h3>
+                    <p class="single-product-pricing"><span>Per Kg</span> $@Model.Price</p>
+                    <p>@Model.Description</p>
+                    <div class="single-product-form">
+                        <form id="add-to-cart-form" method="post" asp-action="AddToCart" asp-controller="ShoppingCart">
+                            <input type="hidden" name="productId" value="@Model.Id" />
+                            <div class="form-group">
+                                <label for="quantity">Quantity:</label>
+                                <input id="quantity" type="number" name="quantity" min="1" value="1" class="form-control" style="width: 100px; display: inline-block;" />
+                            </div>
+                            <div class="form-group mt-3">
+                                <a href="#" class="cart-btn" onclick="document.getElementById('add-to-cart-form').submit();">
+                                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                                </a>
+                            </div>
+                        </form>
+
+                        <p><strong>Category: </strong>@Model.CategoryName</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="logo-carousel-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="logo-carousel-inner">
+                    <div class="single-logo-item">
+                        <img src="/assets/img/company-logos/1.png" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img src="/assets/img/company-logos/2.png" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img src="/assets/img/company-logos/3.png" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img src="/assets/img/company-logos/4.png" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img src="/assets/img/company-logos/5.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
